@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Game</title>
+	<style type="text/css">
+		*{
+			padding: 0px;
+			margin: 0px;
+		}
+		.game-cont{
+			height: 200px;
+			width: 500px;
+			border: 2px solid black;
+			background-image: url("https://i.pinimg.com/originals/27/2e/2a/272e2a7244193d8ec9562772e2f1a0af.gif");
+			background-size: 30%;
+			background-repeat: repeat-x;
+			
+		}
+		.dino{
+			height: 50px;
+			width: 20px;
+			position: relative;
+			top: 150px;
+			background-image: url("https://i.pinimg.com/originals/86/ec/b4/86ecb4855009dde7431a5d12708ffb17.gif");
+			background-position: center;
+			background-size: 270%;
+		}
+		.jump{
+			animation: jump 0.5s ease-in-out 1;
+		}
+		@keyframes jump{
+			50%{
+				top: 100px;
+			}
+
+		}
+		.block{
+			height: 20px;
+			width: 20px;
+			background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfm0BbgeVzJggdeRuBcQy_w76yrIyZrHGx9Q&usqp=CAU");
+			background-position: center;
+			background-size: 150%;
+			position: relative;
+			top: 130px;
+			left: 480px;
+			animation: move 4s linear infinite;
+		}
+		@keyframes move {
+			0%{
+				left: 480px;
+			}
+			100%{
+				left: -30px;
+			}
+		}
+		#score{
+			position: fixed;
+			top: 10px;
+			left: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="game-cont">
+		<div class="dino" onclick="addJump()"></div>
+		<div class="block"></div>
+	</div>
+	<div id="score">0</div>
+	<script type="text/javascript">
+		let score = 0;
+		let scoreDiv = document.getElementById("score");
+		scoreDiv.innerHtml=Score+score;
+		
+		function addJump() {
+			let dino = document.getElementsByClassName("dino")[0];
+			if (dino.getAttribute("class")=="dino") {
+				dino.setAttribute("class","dino jump")
+				setTimeout(()=>{
+					dino.setAttribute("class","dino");
+				},1000)
+			
+		}
+	
+			let gameOver = setInterval(function(){
+				let dino = document.getElementsByClassName("dino")[0];
+				let block = document.getElementsByClassName("block")[0];
+				let dinoDim = parseInt(window.getComputedStyle(dino).getPropertyValue("top"));
+				let blockDim = parseInt(window.getComputedStyle(block).getPropertyValue("left"));
+				scoreDiv.innerHtml = score++;
+				if(blockDim>0 && blockDim<20 && dinoDim>=120)
+				{
+					alert("GAME OVER" + score)
+				}
+			},10)
+		}
+		
+		
+	</script>
+
+</body>
+</html>
